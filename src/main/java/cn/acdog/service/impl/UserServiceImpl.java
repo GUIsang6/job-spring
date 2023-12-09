@@ -1,6 +1,6 @@
 package cn.acdog.service.impl;
 
-import cn.acdog.mapping.UserMapper;
+import cn.acdog.mapper.UserMapper;
 import cn.acdog.pojo.User;
 import cn.acdog.service.UserService;
 import cn.acdog.utils.Md5Util;
@@ -33,4 +33,11 @@ public class UserServiceImpl implements UserService {
     public void updatePwd(String newPwd , Integer id) {
         userMapper.updatePwd(Md5Util.getMD5String(newPwd),id);
     }
+
+    @Override
+    public void delete(Integer id) {
+        userMapper.delete(id);
+    }
+
+
 }

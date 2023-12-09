@@ -24,21 +24,29 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/register")//注册
+    @PostMapping("/register")//用户注册
     public Result register(@Pattern(regexp = "^\\S{5,16}$") String username, @Pattern(regexp = "^\\S{5,16}$") String password, Integer role) {
-//        log.info("username:{}",username);
+        log.info("注册用户，参数为：username={},password={},role={}", username, password, role);
         //查询用户名是否存在
         User u = userService.findByUserName(username);
         if (u == null) {
             userService.register(username, password, role);//注册用户
-            return Result.success();
+            User loginUser = userService.findByUserName(username);
+            Map<String,Object> claims = new HashMap<>();
+            //把id，用户名，角色存储token
+            claims.put("id",loginUser.getId());
+            claims.put("username",loginUser.getUsername());
+            claims.put("role",loginUser.getRole());
+            String token = JwtUtil.genToken(claims);
+            return Result.success(token);
         } else {
             return Result.error("用户名已被专用");
         }
     }
 
-    @PostMapping("/login")//登录
+    @PostMapping("/login")//用户登录
     public Result login(@Pattern(regexp = "^\\S{5,16}$") String username, @Pattern(regexp = "^\\S{5,16}$") String password) {
+        log.info("用户登录，参数为：username={},password={}", username, password);
         //查找用户名
         User loginUser = userService.findByUserName(username);
         if (loginUser == null) {
@@ -58,23 +66,30 @@ public class UserController {
             }
         }
     }
-    @GetMapping("/userInfo")
+
+    @GetMapping("/userInfo")//查询用户信息
     public Result<User> userInfo(/*@RequestHeader(name="Authorization") String token*/){
         /*Map<String, Object> map = JwtUtil.parseToken(token);
         String username = (String) map.get("username");*/
         Map<String,Object> map = ThreadLocalUtil.get();
         String username = (String) map.get("username");
         User user =  userService.findByUserName(username);
+        log.info("查询用户信息，参数为：user={}",user);
         return Result.success(user);
     }
 
-    @PutMapping("/update")
+
+    @PostMapping("/update")//更新用户信息
     public Result update(@RequestBody @Validated User user){
+        Map<String,Object> map = ThreadLocalUtil.get();
+        Integer id = (Integer) map.get("id");
+        user.setId(id);
+        log.info("更新用户信息，参数为：user={}",user);
         userService.update(user);
-        return Result.success();
+        return Result.success(user);
     }
 
-    @PatchMapping("/updatePassword")
+    @PatchMapping("/updatePassword")//更新密码
     public Result updatePassword(@RequestBody Map<String,String> params){
         //校验参数
         String oldPwd =  params.get("old_pwd");
@@ -86,16 +101,20 @@ public class UserController {
         Map<String,Object> map = ThreadLocalUtil.get();
         String username = (String) map.get("username");
         User loginUser = userService.findByUserName(username);
-        if(loginUser.getPassword().equals(Md5Util.getMD5String(oldPwd))){
-            return Result.error("原密码填写不正确");
+        if(!loginUser.getPassword().equals(Md5Util.getMD5String(oldPwd))){
+            log.info("原密码错误，更新密码失败");
+            return Result.error("原密码错误");
+
         }
-        if(rePwd.equals(newPwd)){
-            return Result.error("两次填写的新密码不一样");
+        if(!newPwd.equals(rePwd)){
+            log.info("两次密码不一致，更新密码失败");
+            return Result.error("两次密码不一致");
         }
+        //调用service更新密码
         Integer id = (Integer) map.get("id");
         userService.updatePwd(newPwd,id);
+        log.info("更新密码成功，参数为：params={}",params);
         return Result.success();
 
-        //调用service更新密码
     }
 }

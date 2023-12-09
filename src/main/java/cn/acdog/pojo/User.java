@@ -10,19 +10,14 @@ import org.hibernate.validator.constraints.URL;
 import java.time.LocalDateTime;
 @Data
 public class User {
-    @NotNull
-    private Long id;
+    private Integer id;
     private String username;
-    @JsonIgnore
     private String password;
-    @NotNull
-    @Pattern(regexp = "^\\S{1,16}$")
     private String nickname;
     private Integer role;
     @NotNull
     @Email
     private String email;
-    @URL
     private String avatar;
     private LocalDateTime createTime;
     private LocalDateTime updateTime;

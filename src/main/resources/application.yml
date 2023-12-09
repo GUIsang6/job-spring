@@ -7,3 +7,11 @@ spring:
 mybatis:
   configuration:
     map-underscore-to-camel-case: true #驼峰命名自动转化下划线命名
+    #log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+qiniu:
+  access-key: xCi3QYbZXe6w668kbV81eIE3dTXyQdIPHhNjL6iA
+  secret-key: G5544k9jq6ldE4Jptx2PpUky8ZERgGjTjthZs5Td
+  bucket: acdog
+  path:  https://cdn.acdog.cn/
+

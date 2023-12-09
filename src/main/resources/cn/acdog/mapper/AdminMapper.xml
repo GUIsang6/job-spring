@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.acdog.mapper.AdminMapper">
+    <select id="getUser" resultType="cn.acdog.pojo.User">
+        select *from user
+        <where>
+            <if test="role != null">
+                and role = #{role}
+            </if>
+            <if test="fuzzySearch != null and fuzzySearch!=''">
+                and (username like concat('%', #{fuzzySearch}, '%')
+                or nickname like concat('%', #{fuzzySearch}, '%')
+                or email like concat('%', #{fuzzySearch}, '%'))
+            </if>
+        </where>
+    </select>
+</mapper>

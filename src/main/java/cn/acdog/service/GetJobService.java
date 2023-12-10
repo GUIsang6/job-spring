@@ -7,7 +7,7 @@ public interface GetJobService {
     //删除求职信息
     void deleteGetJob(Integer id);
     //获取求职信息列表
-    PageBean<GetJob> getJobList(Integer page, Integer pageSize, Integer userId, String fuzzySearch);
+    PageBean<GetJob> getJobList(Integer page, Integer pageSize, Integer userId, String fuzzySearch,Integer state);
     //修改求职信息
     void updateGetJob(GetJob getJob);
 

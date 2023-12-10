@@ -38,10 +38,10 @@ public class GetJobController {
     @GetMapping("/getJobList")//获取求职信息列表
     public Result<PageBean<GetJob>> getJobList(Integer pageNum,Integer pageSize,
                              @RequestParam(required = false) Integer userId,
-                             @RequestParam(required = false) String fuzzySearch
-                             ){
-        log.info("求职信息分页查询，参数为：page={},pageSize={},userId={},fuzzySearch={}",pageNum,pageSize,userId,fuzzySearch);
-        PageBean<GetJob> getJobList = getJobService.getJobList(pageNum, pageSize, userId, fuzzySearch);
+                             @RequestParam(required = false) String fuzzySearch,
+                                               @RequestParam(required = false) Integer state){
+        log.info("求职信息分页查询，参数为：page={},pageSize={},userId={},fuzzySearch={},state: {}",pageNum,pageSize,userId,fuzzySearch,state);
+        PageBean<GetJob> getJobList = getJobService.getJobList(pageNum, pageSize, userId, fuzzySearch,state);
         return Result.success(getJobList);
     }
     @PostMapping("/updateGetJob")//修改求职信息

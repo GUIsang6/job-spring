@@ -11,5 +11,5 @@ public interface PostJobService {
     //修改招聘信息
     void updatePostJob(PostJob postJob);
 
-    PageBean<PostJob> getJobList(Integer pageNum, Integer pageSize, Integer userId, String fuzzySearch);
+    PageBean<PostJob> getJobList(Integer pageNum, Integer pageSize, Integer userId, String fuzzySearch, Integer state);
 }

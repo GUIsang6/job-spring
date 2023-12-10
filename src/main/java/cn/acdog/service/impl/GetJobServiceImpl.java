@@ -28,13 +28,13 @@ public class GetJobServiceImpl implements GetJobService {
     }
 
     @Override
-    public PageBean<GetJob> getJobList(Integer pageNum, Integer pageSize, Integer userId, String fuzzySearch) {
+    public PageBean<GetJob> getJobList(Integer pageNum, Integer pageSize, Integer userId, String fuzzySearch,Integer state){
         //创建PageBean对象
         PageBean<GetJob> pageBean = new PageBean<>();
         //开启分页查询
         PageHelper.startPage(pageNum,pageSize);
         //调用mapper查询
-        List<GetJob> getJobList = getJobMapper.getJobList(userId, fuzzySearch);
+        List<GetJob> getJobList = getJobMapper.getJobList(userId, fuzzySearch,state);
         Page<GetJob> page = (Page<GetJob>) getJobList;
 
         //封装数据

@@ -23,5 +23,5 @@ public interface PostJobMapper {
     void updatePostJob(PostJob postJob);
     //获取招聘信息
 
-    List<PostJob> getJobList(Integer userId, String fuzzySearch);
+    List<PostJob> getJobList(Integer userId, String fuzzySearch,Integer state);
 }

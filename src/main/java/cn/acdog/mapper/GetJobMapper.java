@@ -16,7 +16,7 @@ public interface GetJobMapper {
     void deleteGetJob(Integer id);
 
     //查询求职信息列表
-    List<GetJob> getJobList(Integer userId, String fuzzySearch);
+    List<GetJob> getJobList(Integer userId, String fuzzySearch, Integer state);
 
     //修改求职信息
     @Update("update get_job set job=#{job}, address=#{address}, " +

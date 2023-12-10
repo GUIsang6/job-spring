@@ -13,6 +13,6 @@ public class WebConfig implements WebMvcConfigurer {
     private LoginInterceptor loginInterceptor;
     public void addInterceptors(InterceptorRegistry registry) {
         //登录和注册接口不拦截
-       registry.addInterceptor(loginInterceptor).excludePathPatterns("/user/login","/user/register");
+       registry.addInterceptor(loginInterceptor).excludePathPatterns("/getJob/getJobList","/postJob/getPostJob","/user/login","/user/register");
     }
 }

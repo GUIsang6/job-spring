@@ -35,13 +35,13 @@ public class PostJobServiceImpl implements PostJobService {
 
     //获取招聘信息
     @Override
-    public PageBean<PostJob> getJobList(Integer pageNum, Integer pageSize, Integer userId, String fuzzySearch) {
+    public PageBean<PostJob> getJobList(Integer pageNum, Integer pageSize, Integer userId, String fuzzySearch,Integer state) {
        //创建pageBean对象
         PageBean<PostJob> pageBean = new PageBean<>();
         //开启分页查询
         PageHelper.startPage(pageNum,pageSize);
         //调用mapper查询
-        List<PostJob> postJobList = postJobMapper.getJobList(userId, fuzzySearch);
+        List<PostJob> postJobList = postJobMapper.getJobList(userId, fuzzySearch,state);
         Page<PostJob> page = (Page<PostJob>) postJobList;
 
         //封装数据

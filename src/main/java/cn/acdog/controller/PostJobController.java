@@ -48,10 +48,11 @@ public class PostJobController {
     @GetMapping("/getPostJob")//获取招聘信息
     public Result<PageBean<PostJob>> getJobList(Integer pageNum,Integer pageSize,
                                                 @RequestParam(required = false)Integer userId,
-                                                @RequestParam(required = false)String fuzzySearch){
+                                                @RequestParam(required = false)String fuzzySearch,
+                                                @RequestParam(required = false)Integer state){
 
-        log.info("分页查询，参数为：page={},pageSize={},userId={},fuzzySearch={}",pageNum,pageSize,userId,fuzzySearch);
-        PageBean<PostJob> getJobList = postJobService.getJobList(pageNum,pageSize,userId,fuzzySearch);
+        log.info("分页查询，参数为：page={},pageSize={},userId={},fuzzySearch={},state={}",pageNum,pageSize,userId,fuzzySearch,state);
+        PageBean<PostJob> getJobList = postJobService.getJobList(pageNum,pageSize,userId,fuzzySearch,state);
         return Result.success(getJobList);
     }
 

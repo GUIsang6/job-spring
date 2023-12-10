@@ -9,10 +9,14 @@
             <if test="userId != null">
                 AND create_user = #{userId}
             </if>
+            <if test="state != null">
+                AND state = #{state}
+            </if>
             <if test="fuzzySearch != null and fuzzySearch != ''">
                 AND (job LIKE CONCAT('%', #{fuzzySearch}, '%')
                 OR address LIKE CONCAT('%', #{fuzzySearch}, '%')
-                OR job_category LIKE CONCAT('%', #{fuzzySearch}, '%'))
+                OR job_category LIKE CONCAT('%', #{fuzzySearch}, '%')
+                Or company Like CONCAT('%', #{fuzzySearch}, '%'))
             </if>
         </where>
     </select>

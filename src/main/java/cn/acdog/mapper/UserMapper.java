@@ -10,7 +10,7 @@ public interface UserMapper {
     User findByUserName(String username);
     //注册用户"
     @Insert("insert into user(username,password,create_time,update_time,nickname,role,email,avatar,vip,status)"+
-            " values(#{username},#{password},now(),now(),#{username},#{role},null,null,0,1)")
+            " values(#{username},#{password},now(),now(),#{username},#{role},null,'https://cdn.acdog.cn/460d2ad7e5624ba8aa03b985882fd474.jpg',0,1)")
     void add(String username, String password, Integer role);
     //更新用户信息
     @Update("update  user set username=#{username},nickname=#{nickname},email=#{email},avatar=#{avatar}," +

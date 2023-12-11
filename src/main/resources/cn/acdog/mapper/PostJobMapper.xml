@@ -15,7 +15,8 @@
             <if test="fuzzySearch != null and fuzzySearch != ''">
                 AND (job LIKE CONCAT('%', #{fuzzySearch}, '%')
                 OR address LIKE CONCAT('%', #{fuzzySearch}, '%')
-                OR job_category LIKE CONCAT('%', #{fuzzySearch}, '%'))
+                OR job_category LIKE CONCAT('%', #{fuzzySearch}, '%')
+                Or company Like CONCAT('%', #{fuzzySearch}, '%'))
             </if>
         </where>
     </select>

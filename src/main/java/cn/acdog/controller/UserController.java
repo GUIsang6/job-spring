@@ -81,9 +81,6 @@ public class UserController {
 
     @PostMapping("/update")//更新用户信息
     public Result update(@RequestBody @Validated User user){
-        Map<String,Object> map = ThreadLocalUtil.get();
-        Integer id = (Integer) map.get("id");
-        user.setId(id);
         log.info("更新用户信息，参数为：user={}",user);
         userService.update(user);
         return Result.success(user);

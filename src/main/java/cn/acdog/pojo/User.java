@@ -15,8 +15,6 @@ public class User {
     private String password;
     private String nickname;
     private Integer role;
-    @NotNull
-    @Email
     private String email;
     private String avatar;
     private LocalDateTime createTime;
